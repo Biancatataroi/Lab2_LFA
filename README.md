@@ -48,15 +48,6 @@ Key functionality includes:
 - NDFA to DFA conversion  
 - String acceptance testing  
 
-Example of automaton construction in the main program:
-
-```python
-fa = build()
-print("States:", fa.Q)
-print("Alphabet:", fa.Sigma)
-print("Start:", fa.q0)
-print("Final:", fa.F)
----
 ## Results
 
 The automaton defined in Variant 26 is nondeterministic because the transition from state q0 on symbol a leads to two possible states. After applying the subset construction method, an equivalent deterministic automaton is obtained.
