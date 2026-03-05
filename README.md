@@ -1,7 +1,8 @@
 # Laboratory Work — Finite Automaton (Variant 26)
 
 **Course:** Formal Languages & Finite Automata  
-**Author:** Bianca Tataroi  
+**Author:** Bianca-Andreea Tataroi  
+**Group:** FAF-242
 
 ---
 
@@ -18,6 +19,27 @@ Nondeterministic finite automata allow multiple possible transitions for the sam
 The objective of this laboratory work is to implement a finite automaton programmatically using Variant 26, determine whether the automaton is deterministic, convert the NDFA into an equivalent DFA, transform the automaton into a regular grammar, classify the grammar according to the Chomsky hierarchy, and verify whether given strings belong to the language recognized by the automaton.
 
 ---
+## Formal Definition of the Automaton
+
+The finite automaton used in this laboratory work is defined as a 5-tuple:
+
+AF=(Q,Σ,δ,q0,F)
+
+where:
+
+ - Q={q0,q1,q2,q3} represents the finite set of states;
+
+ - Σ={a,b,c} represents the input alphabet;
+
+ - δ represents the transition function;
+ - q0 is the initial state;
+
+ - F={q3} represents the set of final (accepting) states.
+
+The transition function describes how the automaton moves from one state to another when reading symbols from the input alphabet.
+
+---
+
 
 ## Implementation Description
 
@@ -30,6 +52,27 @@ To eliminate nondeterminism, the subset construction algorithm is used to conver
 An additional method simulates the automaton to determine whether input strings are accepted. The program processes each symbol of a word and updates the set of current states according to the transition function. A word is accepted if at least one final state is reached after processing all symbols.
 
 The main program builds the automaton, displays its components, performs the NDFA to DFA conversion, classifies the derived grammar, and tests several example strings.
+
+### Determinism Check
+
+The program verifies whether the automaton is deterministic by analyzing the transition function. A deterministic finite automaton requires that each pair consisting of a state and an input symbol leads to exactly one next state.
+If a transition leads to more than one possible next state, the automaton is classified as nondeterministic. In the automaton defined in Variant 26, the transition from state q0 with symbol a leads to two possible states, therefore the automaton is nondeterministic.
+
+### NDFA to DFA Conversion
+To eliminate nondeterminism, the subset construction algorithm is applied. In this method, each state of the resulting deterministic automaton represents a set of states from the original nondeterministic automaton.
+
+The conversion process begins with the initial state of the NDFA and progressively generates new DFA states by computing all reachable state combinations for each symbol of the alphabet. Any DFA state that contains at least one final NDFA state becomes a final state in the deterministic automaton.
+
+This process guarantees that the resulting DFA recognizes the same language as the original NDFA.
+
+### Conversion to Regular Grammar
+
+The automaton can be transformed into an equivalent regular grammar. In this transformation, each state of the automaton becomes a nonterminal symbol of the grammar, and each transition becomes a production rule.
+
+If a transition leads from state A to state B with input symbol a, with input symbol A ->aB is created. If a transition leads to a final state, an additional production rule allowing termination of the derivation is added.
+
+The grammar obtained from this automaton satisfies the properties of a Type-3 grammar according to the Chomsky hierarchy, which means it is a regular grammar.
+
 
 ---
 
@@ -55,6 +98,12 @@ The automaton defined in Variant 26 is nondeterministic because the transition f
 The conversion to a regular grammar produces a Type-3 grammar according to the Chomsky hierarchy, confirming that the recognized language is regular.
 
 Tested words demonstrate correct behavior of the automaton: words that follow the transition rules and reach the final state are accepted, while others are rejected.
+
+### DFA Construction Result
+
+After applying the subset construction algorithm, an equivalent deterministic finite automaton is obtained. Each state of the deterministic automaton represents a combination of states from the original nondeterministic automaton.
+
+The resulting automaton is deterministic and preserves the language recognized by the original NDFA.
 
 ## Conclusions
 
